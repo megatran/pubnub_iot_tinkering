@@ -16,18 +16,22 @@ print("get ready")
 GPIO.output(7, True)
 time.sleep(1)
 
+# left forward
 GPIO.output(7, False)
 GPIO.output(11, True)
 time.sleep(1)
 
+# left backward
 GPIO.output(11, False)
 GPIO.output(13, True)
 time.sleep(1)
 
+# right forward
 GPIO.output(11, False)
 GPIO.output(13, True)
 time.sleep(1)
 
+# right backward
 GPIO.output(13, False)
 GPIO.output(15, True)
 time.sleep(1)

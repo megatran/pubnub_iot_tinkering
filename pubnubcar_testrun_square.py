@@ -16,18 +16,22 @@ GPIO.setup(15, GPIO.OUT)
 print("get ready")
 
 for x in xrange(0,4):
+    #both forward
     GPIO.output(7, True)
     GPIO.output(13, True)
     time.sleep(2)
-
+    
+    #short pause
     GPIO.output(7, False)
     GPIO.output(13, False)
     time.sleep(.2)
-
+    
+    #sharp turn (pin 7 makes left goes forward, pin 15 makes right goes backward)
     GPIO.output(7, True)
     GPIO.output(15, True)
     time.sleep(.97)
-
+    
+    # turn off motors
     GPIO.output(7, False)
     GPIO.output(15, False)
 
