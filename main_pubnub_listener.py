@@ -1,5 +1,4 @@
 from pubnub import Pubnub
-import json
 import RPi.GPIO as GPIO
 import sys
 
@@ -11,7 +10,6 @@ pubnub = Pubnub(
 	subscribe_key = "sub-c-c0bdecde-e682-11e6-a85c-0619f8945a4f")
 
 channel = "nhan_pi_tinker_channel"
-
 
 
 def error(message):
@@ -44,7 +42,12 @@ def wiresless_control(message):
 		GPIO.setup(13,GPIO.OUT)
 		GPIO.setup(15,GPIO.OUT)
 
-		key_input = message[u'text'].replace("u\"","\"").replace("u\'","\'")
+		# only use this when send message via pubnub console. For example, it would retrieve {"text":"quit"}
+		#key_input = message[u'text'].replace("u\"","\"").replace("u\'","\'")
+
+		# comment this line below if use pubnub console
+		key_input = message
+		
 		print key_input
 		if key_input == "quit":
 			print("QUIT")
