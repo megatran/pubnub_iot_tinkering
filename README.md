@@ -36,6 +36,7 @@ Ultrasonic Sensor Wiring:
 ```
 https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi
 ```
+TRIG goes to pin 36 and ECHO is plugged in to pin 38 of the Pi.
 
 ## How it works
 - This project utilizes PubNub--global Data Stream Network and realtime infrastructure-as-a-service.
@@ -47,6 +48,7 @@ https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi
 - The sender on any computer is programed with Python curses. It might not run well on Windows. Linux or Mac should run it fine. The sender publishes whatever the user presses to the channel so that the listener could respond accordingly.
 - The sender also subscribes to "nhan_ultrasonic_channel" in order to update the distance between the robot and surrounding object in real time.
 
+- The files in the other_tests directory were my initial code to get the basic raspberry pi working with motors and keyboards. Some python files were also my practice following PubNub online tutorials, too.
 
 ## Usage
 
