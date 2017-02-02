@@ -1,4 +1,4 @@
-from __future__ import print_function
+import sys, os
 from pubnub import Pubnub
 import curses
 
@@ -26,44 +26,45 @@ screen.addstr(5,0, "Press 's' for Pause/Stop and 'q' to QUIT the program")
 screen.addstr(7,0, "=============================")
 
 screen.addstr(9,0, "Robot's movement direction: ")
-screen.addstr(11,0, "Distance of the object from Robot's Ultrasonic sensor (cm): ")
+screen.addstr(10,0, "Press an Arrow key")
+screen.addstr(12,0, "Distance of the object from Robot's Ultrasonic sensor (cm): ")
+screen.addstr(13,0, "No data. Run Pubnub listener?")
 
 
 def callback(message, channel):
 	var = message
-	screen.addstr(12,0, str(message)+" centimeters     ")
+	screen.addstr(13,0, str(message)+" centimeters                                 ")
 	screen.refresh()
 
-pubnub.subscribe(channels=ultrasonic_channel, callback=callback)
-
 try:
+	pubnub.subscribe(channels=ultrasonic_channel, callback=callback)
 	while True:   
 		char = screen.getch()
 		if char == ord('q'):
-			screen.addstr(10,0, "EXITING PROGRAM...")
+			screen.addstr(10,0, "EXITING PROGRAM...                                   ")
 			screen.refresh()
 			send_message = "quit"
 			# send last message before quitting
 			pubnub.publish(channel = channel, message = send_message)
 			break
 		elif char == curses.KEY_UP:
-			screen.addstr(10,0, "FORWARD         ")
+			screen.addstr(10,0, "FORWARD                                    ")
 			screen.refresh()
 			send_message = "up"
 		elif char == curses.KEY_DOWN:
-			screen.addstr(10,0, "BACKWARD        ")
+			screen.addstr(10,0, "BACKWARD                                   ")
 			screen.refresh()
 			send_message = "down"
 		elif char == curses.KEY_RIGHT:
-			screen.addstr(10,0, "TURNING RIGHT         ")
+			screen.addstr(10,0, "TURNING RIGHT                                    ")
 			screen.refresh()
 			send_message = "right"
 		elif char == curses.KEY_LEFT:
-			screen.addstr(10,0, "TURNING LEFT       ")
+			screen.addstr(10,0, "TURNING LEFT                                     ")
 			screen.refresh()
 			send_message = "left"
 		elif char == ord('s'):
-			screen.addstr(10,0, "PAUSED        ")
+			screen.addstr(10,0, "PAUSED                                   ")
 			screen.refresh()
 			send_message = "pause"
 
@@ -75,4 +76,9 @@ finally:
     # Close curses and turn echo back on
     curses.nocbreak(); screen.keypad(0); curses.echo()
     curses.endwin()
+    pubnub.unsubscribe(channel=ultrasonic_channel)
+    os._exit(-1)
+
+
+
     
