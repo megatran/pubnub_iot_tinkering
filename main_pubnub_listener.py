@@ -71,14 +71,14 @@ def ultrasonic_wiresless():
 		distance = pulse_duration * 17150
 		distance = int(distance)
 
-		print ("\nDistance of the object from Sensor = "+str(distance))
+		print ("\nDistance of the object from Robot's sensor = "+str(distance)+" cm.")
 		pubnub.publish(channel = ultrasonic_channel, message = distance)
 
 def wiresless_control(message):
 
 	# this method subscribes to nhan_pi_tinker_channel which awaits for user's keyboard input from the sender to tell the motor what to do.
 	# this method and the ultrasonic_wiresless method both run at the same time!
-	
+
 	# define GPIO pin
 	GPIO.setmode(GPIO.BOARD)
 
@@ -97,6 +97,7 @@ def wiresless_control(message):
 	print key_input
 	if key_input == "quit":
 		print("QUIT")
+		pubnub.unsubscribe(channel=channel)
 		GPIO.cleanup()
 		sys.exit(0)
 

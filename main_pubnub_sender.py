@@ -17,6 +17,7 @@ curses.noecho()
 curses.cbreak()
 screen.keypad(True)
 
+# display directions and texts on the terminal ui
 screen.addstr(0,0, "Welcome to Pubnub Robot Remote Control -- created by Nhan Tran")
 screen.addstr(1,0, "Control your robot and get sensor input from anywhere in the world in real time!")
 
@@ -30,7 +31,8 @@ screen.addstr(10,0, "Press an Arrow key")
 screen.addstr(12,0, "Distance of the object from Robot's Ultrasonic sensor (cm): ")
 screen.addstr(13,0, "No data. Run Pubnub listener?")
 
-
+# callback for pubnub subscriber.
+# display sensor data retreived from ultrasonic_channel 
 def callback(message, channel):
 	var = message
 	screen.addstr(13,0, str(message)+" centimeters                                 ")
@@ -46,6 +48,7 @@ try:
 			send_message = "quit"
 			# send last message before quitting
 			pubnub.publish(channel = channel, message = send_message)
+			pubnub.unsubscribe(channel=ultrasonic_channel)
 			break
 		elif char == curses.KEY_UP:
 			screen.addstr(10,0, "FORWARD                                    ")
@@ -76,7 +79,6 @@ finally:
     # Close curses and turn echo back on
     curses.nocbreak(); screen.keypad(0); curses.echo()
     curses.endwin()
-    pubnub.unsubscribe(channel=ultrasonic_channel)
     os._exit(-1)
 
 
