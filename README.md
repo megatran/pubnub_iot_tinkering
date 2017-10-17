@@ -63,10 +63,9 @@ python main_pubnub_listener.py
 ```
 <br>
 On another computer or device, run the PubNub sender:
-```
+
 python main_pubnub_listener.py
 
-```
 
 <br>
 - While running the PubNub sender, you should be able to see some instructions in the terminal screen. 
