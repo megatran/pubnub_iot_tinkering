@@ -76,6 +76,7 @@ python main_pubnub_listener.py
 
 
 <p align = "center">
+<br />
 Demo pic of two terminals (top left the Pubnub listener is running on the Pi, and on the bottom right, the PubNub sender is sending keyboard value to control the robot in real time.
     <img src="pictures/ssh.png" />
 </p>
